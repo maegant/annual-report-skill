@@ -1,6 +1,6 @@
 ---
 name: nsf-annual-report
-description: Interview the user and create concise, simple-language but technically rich NSF Research.gov Project Report drafts from a proposal folder and reusable report templates. Use when Codex is asked to draft, update, revise, organize, or prepare NSF annual report responses, Research.gov Accomplishments responses, Impact page responses, annual progress logs, project outcomes, training/professional development, dissemination, or next-period plans for an NSF award or proposal folder.
+description: Interview the user and create concise, simple-language but technically rich NSF Research.gov Project Report drafts from a proposal folder and reusable report templates. Use when asked to draft, update, revise, organize, or prepare NSF annual report responses, Research.gov Accomplishments responses, Impact page responses, annual progress logs, project outcomes, training/professional development, dissemination, or next-period plans for an NSF award or proposal folder.
 ---
 
 # NSF Annual Report
