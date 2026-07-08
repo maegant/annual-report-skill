@@ -95,40 +95,47 @@ However you installed it, update later by pulling:
 cd path/to/nsf-annual-report && git pull
 ```
 
-## Example
+## Usage
 
-Start your agent **inside your proposal/award folder** and ask for the report.
-The skill treats the current working directory as the active project.
+Start your agent **inside your NSF project directory** — the skill treats the
+current working directory as the active project. Then it's three steps.
 
-**First run — it sets up durable project context.** If no `nsf-report-context.md`
-exists, the skill creates one from the template and interviews you for the facts
-it can't find in the folder:
+### 1. Create the project context file
 
-```
-You:   Use this folder to draft my NSF annual report for this period.
-
-Skill: I don't see an nsf-report-context.md here, so I'll create one from the
-       template. First, a few durable facts (rough notes are fine):
-        - Award number and project title?
-        - Reporting period this report covers?
-        - PI, co-PIs, and institutions?
-        - Any agency-approved changes to goals, scope, or key personnel?
-
-You:   Award #2043872, "Robust Motion Synthesis for Contact-Rich CPS".
-       Period 07/2025–06/2026. PI Jane Doe, Georgia Tech. No approved changes.
-```
-
-**Then it runs one organized intake questionnaire** for the current period —
-people supported, activities, results, products, publications, presentations,
-outreach, deviations, and next steps. `none`, `not applicable`, and `unknown`
-are all valid answers, and anything already answered by files in the folder is
-shown to you for confirmation instead of re-asked.
-
-**Finally it writes a paste-ready draft** into your folder — no invented facts,
-no leftover `[TODO]` placeholders, and mindful of Research.gov's field limits:
+Ask the skill to start a report for your reporting period:
 
 ```
-Annual Reports/nsf_report_2025_2026.md
+start #nsf-annual-report for 2025-2026
+```
+
+The skill copies `references/project-context-template.md` into your project as
+`nsf-report-context.md`, pre-filled with the reporting period. This file is the
+durable, reusable source of truth for the project — it lives in your project
+folder, not in this repo.
+
+### 2. Fill out `nsf-report-context.md`
+
+Open the new `nsf-report-context.md` and fill in your project's variables and
+this period's facts: award number, title, PI/team, approved goals, people
+supported, activities, results, products, publications, dissemination, and next
+steps. Rough bullets are fine, and `none` / `not applicable` / `unknown` are
+valid answers.
+
+### 3. Generate the report
+
+Ask the skill to draft the report:
+
+```
+create report using #nsf-annual-report
+```
+
+The skill reads your filled-in `nsf-report-context.md`, asks targeted follow-up
+questions for anything still missing (rather than inventing facts), and writes a
+paste-ready draft into your folder — mindful of Research.gov's field limits and
+free of `[TODO]` placeholders:
+
+```
+nsf_report_2025_2026.md
 ├── Accomplishments
 │   ├── 1. Major goals of the project
 │   ├── 2. What was accomplished (Activities / Objectives / Results / Outcomes)
@@ -138,15 +145,14 @@ Annual Reports/nsf_report_2025_2026.md
 └── Impact (principal discipline, other disciplines, human resources, …)
 ```
 
-You review the markdown, then paste each section into Research.gov. Durable
-facts you supply are saved back into `nsf-report-context.md`, so next year's
-report starts from what you already established.
+Review the markdown, then paste each section into Research.gov. Because the facts
+live in `nsf-report-context.md`, next year you only update that file and re-run
+step 3.
 
 ### Other things you can ask
 
 - "Update my Research.gov accomplishments section for this reporting period."
 - "Turn these notes into NSF annual report responses."
-- "Create a progress log for the next annual report."
 - "Revise the training, dissemination, and next-year plan sections."
 
 ## Design notes

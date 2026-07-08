@@ -23,12 +23,35 @@ Always read `references/report-intake-questionnaire.md` before asking the user f
 
 ## Workflow
 
+This skill runs in two modes, chosen by what the user asks for:
+
+- **Setup mode** — triggered by requests like "start nsf-annual-report for 2025-2026". Create the project's `nsf-report-context.md` from the template and hand it back to the user to fill in. Do not run the full intake interview here.
+- **Draft mode** — triggered by requests like "create report using nsf-annual-report". Read the filled-in `nsf-report-context.md`, offer to interview for any gaps, then draft the report.
+
+If the user's intent is ambiguous, or they ask to draft but no `nsf-report-context.md` exists yet, start with Setup mode and tell them what you did.
+
+### Setup mode: create the project context file
+
 1. Identify the active proposal/report folder.
    - Use the current working directory by default.
    - Inspect top-level files and likely folders such as `Submitted Documents`, `Annual Reports`, `Reports`, `Research.gov`, `Products`, `Publications`, and `REU Supplement`.
-   - Prefer existing proposal documents, prior report drafts, annual logs, publications, notes, and user-supplied updates over generic language.
-   - Look for `nsf-report-context.md` in the active folder. Treat this as the project's durable source of variables and annual facts.
-   - If `nsf-report-context.md` is absent, create one from `references/project-context-template.md` when the user wants reusable project setup.
+   - Look for an existing `nsf-report-context.md` in the active folder.
+
+2. Create `nsf-report-context.md` from `references/project-context-template.md`.
+   - If the file already exists, do not overwrite it. Tell the user it exists and ask whether to update specific fields or move on to drafting.
+   - If it is absent, copy the template into the active folder as `nsf-report-context.md`.
+   - Pre-fill the `reporting_period` from the user's request (for example, "2025-2026"), and pre-fill any variables you can confidently read from local proposal files (award number, title, PI/team). Leave everything else as the template's blank fields.
+
+3. Hand the file back to the user.
+   - Tell the user the file is ready and where it is, and ask them to fill in their project variables and this period's facts.
+   - Do not run the full intake questionnaire in Setup mode. The goal is to give the user the file to complete.
+   - Offer to help fill specific sections if they would rather answer questions than edit the file directly.
+
+### Draft mode: generate the report
+
+1. Read `nsf-report-context.md` in the active folder.
+   - If it is missing, switch to Setup mode first, then return here.
+   - Treat this file as the project's durable source of variables and annual facts.
 
 2. Build a project context brief before writing.
    - Start with variables in `nsf-report-context.md`: award number, reporting period, project title, PI/team, approved project goals, major research threads, broader impacts, planned evaluation, and writing preferences.
@@ -36,10 +59,10 @@ Always read `references/report-intake-questionnaire.md` before asking the user f
    - Use local proposal files and prior drafts to fill gaps, but let explicit values in `nsf-report-context.md` override inferred facts.
    - Treat missing or uncertain facts as questions for the user; do not invent accomplishments, dates, publications, trainee names, or dissemination events.
 
-3. Interview the user before drafting.
-   - Ask the consolidated intake questions needed to complete the report without `[TODO]`, `[VERIFY]`, or `[EDIT]` markers.
-   - Prefer one organized questionnaire with short section headings over many scattered interruptions.
-   - If the folder already answers a question, show the inferred answer and ask the user to confirm or correct it.
+3. Offer to interview the user for gaps before drafting.
+   - Identify which report sections cannot yet be drafted cleanly (without `[TODO]`, `[VERIFY]`, or `[EDIT]` markers) from `nsf-report-context.md` and local evidence.
+   - If there are gaps, offer to ask the user for the missing facts. Prefer one organized questionnaire with short section headings over many scattered interruptions.
+   - If the folder or context file already answers a question, show the inferred answer and ask the user to confirm or correct it.
    - If the user answers partially, ask targeted follow-up questions until each report section can be drafted cleanly.
    - Accept "none", "not applicable", or "unknown" as explicit answers; reflect them appropriately in the final text.
    - When the user supplies durable project facts or annual facts, add or update them in `nsf-report-context.md` unless the user asks not to.
@@ -76,6 +99,8 @@ Always read `references/report-intake-questionnaire.md` before asking the user f
 
 ## Common Requests
 
+- "Start nsf-annual-report for 2025-2026." (Setup mode: create `nsf-report-context.md`.)
+- "Create report using nsf-annual-report." (Draft mode: draft from the filled-in context.)
 - "Use this folder to draft the annual NSF report."
 - "Update my Research.gov accomplishments section for this reporting period."
 - "Turn these notes into NSF annual report responses."
